@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pinkColor">
+
+    <!-- <ImageView
+         android:layout_width="200dp"
+         android:layout_height="200dp"
+         android:src="@mipmap/ic_launcher"
+         android:layout_gravity="center_horizontal|center_vertical"
+
+         />-->
+    <!--app:layout_behavior=".DragDismissBehavior"-->
+
+</android.support.design.widget.CoordinatorLayout>
+

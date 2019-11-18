@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bonade.fakedouyin.widget.swipeback.SwipeBackLayout
+    android:id="@+id/swipe"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 滑动回退Activity用到 -->
+</com.bonade.fakedouyin.widget.swipeback.SwipeBackLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="22dp"
+    >
+
+    <com.bonade.fakedouyin.widget.RoundFrameLayout
+        android:id="@+id/camera_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="48dp"
+        >
+
+        <io.fotoapparat.view.CameraView
+            android:id="@+id/camera_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </io.fotoapparat.view.CameraView>
+    </com.bonade.fakedouyin.widget.RoundFrameLayout>
+
+    <!-- 录制预览 -->
+   <!-- <com.bonade.fakedouyin.widget.GLRecordView
+        android:id="@+id/gl_record_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       />-->
+
+    <!--<com.bonade.fakedouyin.widget.MyCameraView
+        android:id="@+id/my_cmeraview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+    <!--<com.bonade.fakedouyin.widget.TestView
+        android:id="@+id/testView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pinkColorTransparent"
+        />
+
+    <View
+        android:id="@+id/move_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        />-->
+
+    <com.bonade.fakedouyin.widget.RecordedButton
+        android:id="@+id/recorded_button"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        />
+
+    <!-- 拍照等选择按钮 android:gravity="center_horizontal"-->
+    <com.bonade.fakedouyin.widget.horizontal_mul_button.HorizontalMul
+        android:id="@+id/mul_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+
+        android:background="@android:color/transparent"
+        >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="拍照"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="拍60秒"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="拍15秒"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="影集"
+                android:textColor="@android:color/white"
+                />
+    </com.bonade.fakedouyin.widget.horizontal_mul_button.HorizontalMul>
+
+    <!-- 录制界面最下面的白色圆点 -->
+    <View
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/circle_point"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        />
+</RelativeLayout>
