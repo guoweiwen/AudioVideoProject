@@ -19,6 +19,9 @@ import kotlinx.android.synthetic.main.activity_test.*
 import java.io.File
 import java.io.InputStream
 
+/**
+ * 测试类
+ * */
 class TestActivity : BaseActivity() {
     private lateinit var testTv : TextView
 
@@ -34,18 +37,17 @@ class TestActivity : BaseActivity() {
             addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             addPermission(Manifest.permission.ACCESS_FINE_LOCATION)
             addPermission(Manifest.permission.CALL_PHONE)
-            addPermission(Manifest.permission.ACCESS_WIFI_STATE)
+            addPermission(Manifest.permission.ACCESS_WIFI_STATE)//正常权限
             addPermission(Manifest.permission.CAMERA)
             permissionRequestSuccess = {
                 testTv.text = "授权成功"
             }
-            permissionRequestFail = { grantedPermissions: Array<String>, deniedPermissions: Array<String>, forceDeniedPermissions: Array<String> ->
-                //TODO  有些权限不用申请但放在 强迫否认数组
+            forceAllPermissionsGranted = true
+            permissionRequestFail = { _: Array<String>, _: Array<String>, _: Array<String> ->
                 Toast.makeText(this@TestActivity,"授权失败",Toast.LENGTH_LONG).show()
             }
             forceDeniedPermissionTips = "请前往设置->应用->【 + ${PermissionUtil.getAppName(this@TestActivity)} + 】->权限中打开相关权限，否则功能无法正常运行！\""
-            startApplyPermission()
-        }
+        }.startApplyPermission()
     }
 
     private fun refreshPermissionStatus() {
