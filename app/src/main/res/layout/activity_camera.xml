@@ -8,7 +8,7 @@
     android:layout_marginTop="22dp"
     >
 
-    <com.bonade.fakedouyin.widget.RoundFrameLayout
+    <com.wyman.fakedouyin.widget.RoundFrameLayout
         android:id="@+id/camera_framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
             >
 
         </io.fotoapparat.view.CameraView>
-    </com.bonade.fakedouyin.widget.RoundFrameLayout>
+    </com.wyman.fakedouyin.widget.RoundFrameLayout>
 
     <!-- 录制预览 -->
    <!-- <com.bonade.fakedouyin.widget.GLRecordView
@@ -50,7 +50,7 @@
         android:background="@color/colorPrimary"
         />-->
 
-    <com.bonade.fakedouyin.widget.RecordedButton
+    <com.wyman.fakedouyin.widget.RecordedButton
         android:id="@+id/recorded_button"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -60,7 +60,7 @@
         />
 
     <!-- 拍照等选择按钮 android:gravity="center_horizontal"-->
-    <com.bonade.fakedouyin.widget.horizontal_mul_button.HorizontalMul
+    <com.wyman.fakedouyin.widget.horizontal_mul_button.HorizontalMul
         android:id="@+id/mul_button"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -102,7 +102,7 @@
                 android:text="影集"
                 android:textColor="@android:color/white"
                 />
-    </com.bonade.fakedouyin.widget.horizontal_mul_button.HorizontalMul>
+    </com.wyman.fakedouyin.widget.horizontal_mul_button.HorizontalMul>
 
     <!-- 录制界面最下面的白色圆点 -->
     <View
