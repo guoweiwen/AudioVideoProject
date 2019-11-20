@@ -3,7 +3,7 @@ package com.bonade.cameralibrary.core.characteristic
 /**
  * Created by wyman
  * on 2019-09-13.
- * sealed 是密封类
+ * sealed 是密封类 即 enum 枚举类
  * LensPosition 指透视镜头
  */
 sealed class LensPosition {
