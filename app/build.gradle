@@ -41,6 +41,13 @@ androidExtensions {
     experimental = true
 }
 
+kotlin{
+    experimental{
+        //开启协程
+        coroutines 'enable'
+    }
+}
+
 dependencies {
 
 

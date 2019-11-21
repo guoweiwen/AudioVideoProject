@@ -34,9 +34,13 @@ internal open class OrientationSensor(/*入口*/
     //OrientationState 接口
     private lateinit var listener : (OrientationState) -> Unit
 
+    /**
+     * 该构造函数给外部使用
+     * 自己再调用 this() 构造函数
+     * */
     constructor(
             context : Context,
-            device : com.wyman.cameralibrary.core.hardware.Device
+            device : Device
     ) : this (
             RotationListener(context),
             device
