@@ -101,7 +101,8 @@ open class PermissionUtil internal constructor(private var activity: Context)/*(
      * 开始申请权限
      * */
     fun startApplyPermission(){
-        //also 实现builder模式
+        //also 与 apply 不同在于 also后再链式调用对象不变；apply：对象发生变化；
+        //相同就是都返回 该调用对象
         PermissionFragment.newInstance(permissions.toTypedArray()).also { //also 返回PermissionFragment
             it.permissionRequestSuccess = permissionRequestSuccess
             it.permissionRequestFail = permissionRequestFail

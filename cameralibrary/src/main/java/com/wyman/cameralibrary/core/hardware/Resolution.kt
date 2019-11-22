@@ -6,7 +6,7 @@ import androidx.annotation.IntRange
  * 分辨率：即宽高
  * */
 data class Resolution(
-        @[JvmField IntRange(from = 0L)]val width : Int,
+        @[JvmField IntRange(from = 0L)] val width : Int,
         @[JvmField IntRange(from = 0L)] val height : Int
 ) {
     val area : Int by lazy { width * height}
@@ -21,7 +21,7 @@ data class Resolution(
     }
 
     /**
-     * 返回一个宽高分辨率对象
+     * 返回一个将 高宽 置换的 Resolution 对象
      * */
-    fun flipDimensions() : Resolution = Resolution(width, height)
+    fun flipDimensions() : Resolution = Resolution(height,width)
 }

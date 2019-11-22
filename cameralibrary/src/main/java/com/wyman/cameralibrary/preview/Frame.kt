@@ -1,5 +1,6 @@
 package com.wyman.cameralibrary.preview
 
+import com.wyman.cameralibrary.core.hardware.Resolution
 import java.util.*
 
 /**
@@ -9,7 +10,7 @@ import java.util.*
  */
 data class Frame (
         //该帧的分辨率
-        val size : Int,//Resolution,
+        val size : Resolution,//Resolution,
         //该帧的数据 NV21 格式
         val image : ByteArray,
         //旋转角度
