@@ -3,6 +3,10 @@ package com.wyman.cameralibrary.core.characteristic
 import android.hardware.Camera
 import java.lang.IllegalArgumentException
 
+
+//LensPositionSelector 为 Iterable<LensPosition>的别名
+typealias LensPositionSelector = Iterable<LensPosition>.() -> LensPosition?
+
 /**
  * Created by wyman
  * on 2019-09-13.
