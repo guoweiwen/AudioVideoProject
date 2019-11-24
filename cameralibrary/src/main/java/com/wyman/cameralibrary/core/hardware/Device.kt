@@ -8,6 +8,7 @@ import com.wyman.cameralibrary.core.orientation.Orientation
 import com.wyman.cameralibrary.core.orientation.OrientationSensor
 import java.lang.IllegalArgumentException
 import kotlinx.coroutines.CompletableDeferred
+import java.lang.IllegalStateException
 
 internal open class Device (
         private val display : Display,
@@ -49,8 +50,59 @@ internal open class Device (
     open fun clearSelectedCamera(){
         selectedCameraDevice = CompletableDeferred()
     }
+
+    open fun hasSelectedCamera() = selectedCameraDevice.isCompleted
+
+    /**
+     * 选择摄像头，如果摄像头不被选择什么都不做
+     * */
+    open fun selectCamera(){
+//        selectCamera(
+//                availableCameras = cameras,
+//        )
+    }
+
 }
 
+/**
+ * 从空闲状态打开摄像头
+ * */
+internal fun Device.bootStart(
+        orientationSensor: OrientationSensor
+){
+    check(!hasSelectedCamera()) { "Camera has already start" }
+
+    try{
+        start()
+//        startOrientationMontioring(
+//                orientationSensor = orientationSensor
+//        )
+    } catch (e : Exception){
+        e.printStackTrace()
+    }
+}
+
+/**
+ * 打开摄像头
+ * */
+internal fun Device.start(){
+    selectCamera()
+}
+
+/**
+ * 从可用的摄像头选择摄像头
+ * */
+//internal fun selectCamera(
+//        availableCameras : List<CameraDevice>,
+//        lensPositionSelector: LensPositionSelector
+//) : CameraDevice?{
+//    val lensPositions = availableCameras.map{it.characteristics.lensPosition}.toSet()
+//    //选择需要的摄像头
+//    val desiredPosition = lensPositionSelector(lensPositions)
+//    return availableCameras.find{
+//
+//    }
+//}
 
 internal fun Device.shutDown(
         orientationSensor: OrientationSensor

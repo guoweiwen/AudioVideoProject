@@ -7,6 +7,7 @@ import com.wyman.cameralibrary.core.selector.front
 import com.wyman.utillibrary.selector.firstAvailable
 import com.wyman.cameralibrary.core.concurrent.CameraExecutor
 import com.wyman.cameralibrary.core.concurrent.CameraExecutor.Operation
+import com.wyman.cameralibrary.core.hardware.CameraConfiguration
 import com.wyman.cameralibrary.core.hardware.Device
 import com.wyman.cameralibrary.core.hardware.Display
 import com.wyman.cameralibrary.core.hardware.shutDown
@@ -17,20 +18,29 @@ import com.wyman.cameralibrary.core.orientation.OrientationSensor
  * */
 class CameraHelper @JvmOverloads constructor(
     context: Context,
-    cameraType : CameraSelector = firstAvailable(//传入 front() 或 back()
+    //firstAvailable 找第一个可用的摄像头
+    lensPosition : CameraSelector = firstAvailable(//传入 front() 或 back()
             front(),
             back()
     ),
-
+    //默认 摄像头配置类
+    cameraConfiguration : CameraConfiguration = CameraConfiguration.default(),
     private val executor : CameraExecutor = EXECUTOR
 ){
 
+    //设备显示情况
     private val display = Display(context)
 
     private val device = Device(
-        display = display
+        display = display,
+        initiaLensPositionSelector = lensPosition,
+        initialConfiguration = cameraConfiguration,
+        executor = executor
     )
 
+    /**
+     * 监听设备角度类
+     * */
     private val orientationSensor = OrientationSensor(
             context = context,
             device = device

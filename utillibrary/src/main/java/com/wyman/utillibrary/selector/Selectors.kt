@@ -56,6 +56,18 @@ fun <T : Any,R> Array<T>.findNonNull(selector : (T) -> R?) : R?{
     return null
 }
 
+/**
+ * @param selector 原始的选择器方法
+ * @param predicate 在他传递给选择器之前检查是否符合条件
+ * @return 返回一个符合的选择方法
+ * */
+fun <T : Any> filtered(
+    selector : Iterable<T>.() -> T?,//传入一个迭代器
+    predicate:(T) -> Boolean//传入一个方法类型
+) : Iterable<T>.() -> T? = {
+    selector(filter(predicate = predicate))
+}
+
 
 
 
