@@ -8,7 +8,6 @@ import com.wyman.cameralibrary.core.orientation.Orientation
 import com.wyman.cameralibrary.core.orientation.OrientationSensor
 import java.lang.IllegalArgumentException
 import kotlinx.coroutines.CompletableDeferred
-import java.lang.IllegalStateException
 
 internal open class Device (
         private val display : Display,
@@ -27,11 +26,17 @@ internal open class Device (
         cameraId -> CameraDevice(characteristics = getCharacteristics(cameraId))
     }
 
-    private var lensPosition : LensPositionSelector = initiaLensPositionSelector
+    private var lensPositionSelector : LensPositionSelector = initiaLensPositionSelector
 
 
     //CompleteleDeferred （协程相关类）通信原语表示未来可知（可传达）的单个值， 这里被用于此目的
     private var selectedCameraDevice = CompletableDeferred<CameraDevice>()
+    private var saveConfiguration = CameraConfiguration.default()
+
+    init {
+        updateLensPositionSelector(initiaLensPositionSelector)
+        saveConfiguration = initialConfiguration
+    }
 
     open fun getScreenOrientation() : Orientation{
         return display.getOrientation()
@@ -57,9 +62,18 @@ internal open class Device (
      * 选择摄像头，如果摄像头不被选择什么都不做
      * */
     open fun selectCamera(){
-//        selectCamera(
-//                availableCameras = cameras,
-//        )
+        //返回 CameraDevice
+        selectCamera(
+                availableCameras = cameras,
+                lensPositionSelector = lensPositionSelector
+        )?.let(selectedCameraDevice::complete) ?: throw IllegalArgumentException("throw IllegalArgumentException(\"Camera has not started.\")")
+    }
+
+    /**
+     * 更改摄像头
+     * */
+    open fun updateLensPositionSelector(newLensPosition : LensPositionSelector){
+        lensPositionSelector = newLensPosition
     }
 
 }
@@ -91,18 +105,20 @@ internal fun Device.start(){
 
 /**
  * 从可用的摄像头选择摄像头
+ * @return CameraDevice
  * */
-//internal fun selectCamera(
-//        availableCameras : List<CameraDevice>,
-//        lensPositionSelector: LensPositionSelector
-//) : CameraDevice?{
-//    val lensPositions = availableCameras.map{it.characteristics.lensPosition}.toSet()
-//    //选择需要的摄像头
-//    val desiredPosition = lensPositionSelector(lensPositions)
-//    return availableCameras.find{
-//
-//    }
-//}
+internal fun selectCamera(
+        availableCameras : List<CameraDevice>,
+        lensPositionSelector: LensPositionSelector
+) : CameraDevice?{
+    val lensPositions = availableCameras.map{it.characteristics.lensPosition}.toSet()
+    //选择需要的摄像头
+    val desiredPosition = lensPositionSelector(lensPositions)
+
+    return availableCameras.find{
+        it.characteristics.lensPosition == desiredPosition
+    }
+}
 
 internal fun Device.shutDown(
         orientationSensor: OrientationSensor

@@ -1,4 +1,4 @@
-package com.wyman.cameralibrary.core.camera
+package com.wyman.cameralibrary
 
 import android.content.Context
 import com.wyman.cameralibrary.core.selector.CameraSelector
@@ -7,17 +7,19 @@ import com.wyman.cameralibrary.core.selector.front
 import com.wyman.utillibrary.selector.firstAvailable
 import com.wyman.cameralibrary.core.concurrent.CameraExecutor
 import com.wyman.cameralibrary.core.concurrent.CameraExecutor.Operation
-import com.wyman.cameralibrary.core.hardware.CameraConfiguration
+import com.wyman.cameralibrary.core.hardware.*
 import com.wyman.cameralibrary.core.hardware.Device
 import com.wyman.cameralibrary.core.hardware.Display
 import com.wyman.cameralibrary.core.hardware.shutDown
 import com.wyman.cameralibrary.core.orientation.OrientationSensor
+import com.wyman.cameralibrary.preview.CameraRenderer
 
 /**
  * 摄像头调用类
  * */
 class CameraHelper @JvmOverloads constructor(
     context: Context,
+    view : CameraRenderer,
     //firstAvailable 找第一个可用的摄像头
     lensPosition : CameraSelector = firstAvailable(//传入 front() 或 back()
             front(),
@@ -25,7 +27,7 @@ class CameraHelper @JvmOverloads constructor(
     ),
     //默认 摄像头配置类
     cameraConfiguration : CameraConfiguration = CameraConfiguration.default(),
-    private val executor : CameraExecutor = EXECUTOR
+    private val executor : CameraExecutor = EXECUTOR//传了默认值进去
 ){
 
     //设备显示情况
@@ -52,8 +54,10 @@ class CameraHelper @JvmOverloads constructor(
      * */
     fun start(){
         executor.execute(Operation{
-            //执行任务
-
+            //执行的任务
+            device.bootStart(
+                    orientationSensor = orientationSensor
+            )
         })
     }
 
@@ -65,7 +69,7 @@ class CameraHelper @JvmOverloads constructor(
         //取消所有任务，未执行完等待执行完就不再执行
         executor.cancelTasks()
         executor.execute(Operation{
-            //
+            //执行的任务
             device.shutDown(
                     orientationSensor = orientationSensor
             )

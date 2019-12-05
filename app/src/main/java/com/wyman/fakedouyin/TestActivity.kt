@@ -6,6 +6,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.wyman.utillibrary.permission.PermissionUtil
 import io.fotoapparat.Fotoapparat
+import io.fotoapparat.selector.back
+import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_test.*
 
 /**
@@ -13,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_test.*
  * */
 class TestActivity : BaseActivity() {
     private lateinit var testTv : TextView
+//    private lateinit var camera : CameraHelper
+    private lateinit var fotoapparat :Fotoapparat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +28,8 @@ class TestActivity : BaseActivity() {
         //测试权限类
         PermissionUtil.generate(this){
             addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            addPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            addPermission(Manifest.permission.CALL_PHONE)
+//            addPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+//            addPermission(Manifest.permission.CALL_PHONE)
             addPermission(Manifest.permission.ACCESS_WIFI_STATE)//正常权限
             addPermission(Manifest.permission.CAMERA)
             permissionRequestSuccess = {
@@ -40,7 +44,28 @@ class TestActivity : BaseActivity() {
         }.startApplyPermission()
         //---------------------------------测试权限类---------------------------------
 
-        Fotoapparat
+        fotoapparat = Fotoapparat(
+                context = this,
+                view = camera_view,
+                lensPosition = back()
+        )
+
+
+//        camera = CameraHelper(
+//                this,
+//                back()
+//        )
+
+        testTv.setOnClickListener {
+            fotoapparat.start()
+//            camera.start()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        fotoapparat.stop()
+//        camera.stop()
     }
 
 
