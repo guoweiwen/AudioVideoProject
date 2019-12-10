@@ -57,7 +57,7 @@ fun Any?.logE(){
     }
 }
 
-
+//测试
 fun main(args : Array<String>){
     val elements = Thread.currentThread().stackTrace
     for(element in elements){

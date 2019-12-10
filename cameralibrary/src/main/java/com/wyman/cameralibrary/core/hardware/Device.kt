@@ -6,10 +6,12 @@ import com.wyman.cameralibrary.core.characteristic.getCharacteristics
 import com.wyman.cameralibrary.core.concurrent.CameraExecutor
 import com.wyman.cameralibrary.core.orientation.Orientation
 import com.wyman.cameralibrary.core.orientation.OrientationSensor
+import com.wyman.cameralibrary.preview.CameraRenderer
 import java.lang.IllegalArgumentException
 import kotlinx.coroutines.CompletableDeferred
 
 internal open class Device (
+        internal open val cameraRenderer: CameraRenderer,
         private val display : Display,
         internal val executor : CameraExecutor,
         //Camera.getNumberOfCameras() Camera 本身的方法

@@ -16,7 +16,7 @@ import java.util.LinkedList
  */
 
 open class GLImageFilter
-@JvmOverloads constructor(protected var mContext: Context, // 纹理字符串
+@JvmOverloads constructor(protected var mContext: Context?, // 纹理字符串
       protected var mVertexShader: String = VERTEX_SHADER,
       protected var mFragmentShader: String = FRAGMENT_SHADER) {
 

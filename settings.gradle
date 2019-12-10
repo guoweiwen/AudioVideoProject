@@ -1,1 +1,1 @@
-include ':app', ':cameralibrary', ':utillibrary', ':gdxlibrary', ':filterlibrary'
+include ':app', ':cameralibrary', ':utillibrary', ':gdxlibrary', ':filterlibrary', ':medialibrary'

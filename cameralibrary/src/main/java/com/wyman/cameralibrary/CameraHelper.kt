@@ -34,6 +34,7 @@ class CameraHelper @JvmOverloads constructor(
     private val display = Display(context)
 
     private val device = Device(
+        cameraRenderer = view,
         display = display,
         initiaLensPositionSelector = lensPosition,
         initialConfiguration = cameraConfiguration,

@@ -2,13 +2,16 @@ package com.wyman.fakedouyin.renderer
 
 import android.content.Context
 import android.graphics.SurfaceTexture
+import android.opengl.EGL14
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
+import com.wyman.fakedouyin.presenter.RecordPresenter
 import com.wyman.filterlibrary.glfilter.GLImageFilter
 import com.wyman.filterlibrary.glfilter.GLImageOESInputFilter
 import com.wyman.filterlibrary.glfilter.color.DynamicColor
 import com.wyman.filterlibrary.utils.OpenGLUtils
 import com.wyman.filterlibrary.utils.TextureRotationUtils
+import java.lang.ref.WeakReference
 
 
 import java.nio.FloatBuffer
@@ -18,10 +21,8 @@ import javax.microedition.khronos.opengles.GL10
 
 /**
  * 录制线程
- * @author CainHuang
- * @date 2019/7/13
  */
-class RecordRenderer(mContext: Context) : GLSurfaceView.Renderer,SurfaceTexture.OnFrameAvailableListener {
+class RecordRenderer(presenter: RecordPresenter) : GLSurfaceView.Renderer,SurfaceTexture.OnFrameAvailableListener {
     private var mInputFilter: GLImageOESInputFilter? = null // 相机输入滤镜
     private var mColorFilter: GLImageFilter? = null  // 颜色滤镜
     private var mImageFilter: GLImageFilter? = null // 输出滤镜
@@ -44,12 +45,7 @@ class RecordRenderer(mContext: Context) : GLSurfaceView.Renderer,SurfaceTexture.
     private var mSurfaceTexture: SurfaceTexture? = null
     private val mMatrix = FloatArray(16)
     // presenter
-//    private val mWeakPresenter: WeakReference<RecordPresenter>
-    private val context : Context = mContext
-
-    init {
-//        mWeakPresenter = WeakReference(presenter)
-    }
+    private val mWeakPresenter: WeakReference<RecordPresenter> = WeakReference(presenter)
 
     //传递 SurfaceTexture 接口
     private var onSurfaceCreateListener: OnSurfaceCreateListener? = null
@@ -73,10 +69,10 @@ class RecordRenderer(mContext: Context) : GLSurfaceView.Renderer,SurfaceTexture.
         GLES30.glEnable(GL10.GL_CULL_FACE)
         GLES30.glEnable(GL10.GL_DEPTH_TEST)
         initFilters()
-//        mWeakPresenter.get()?.let{
-//            it.onBindSurfaceTexture(mSurfaceTexture)
-//            it.onBindSharedContext(EGL14.eglGetCurrentContext())
-//        }
+        mWeakPresenter.get()?.let{
+            it.onBindSurfaceTexture(mSurfaceTexture)
+            it.onBindSharedContext(EGL14.eglGetCurrentContext())
+        }
         onSurfaceCreateListener?.onSurfaceCreate(mSurfaceTexture!!)
     }
 
@@ -119,10 +115,13 @@ class RecordRenderer(mContext: Context) : GLSurfaceView.Renderer,SurfaceTexture.
 
     private fun initFilters() {
 //        mInputFilter = GLImageOESInputFilter(mWeakPresenter.get()?.activity!!)
-        mInputFilter = GLImageOESInputFilter(context)
+        mInputFilter = mWeakPresenter.get()?.activity?.let {
+            //it 为 activity
+            GLImageOESInputFilter(it)
+        }
 //        mColorFilter = GLImageDrosteFilter(mWeakPresenter.get().getActivity())
 //        mImageFilter = GLImageFilter(mWeakPresenter.get()?.activity!!)
-        mImageFilter = GLImageFilter(context)
+        mImageFilter = mWeakPresenter.get()?.activity?.let { GLImageFilter(it) }
     }
 
     private fun onFilterSizeChanged() {

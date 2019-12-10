@@ -2,16 +2,23 @@ package com.wyman.cameralibrary.preview
 
 import android.content.Context
 import android.graphics.Rect
+import android.graphics.SurfaceTexture
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
 import android.view.SurfaceHolder
+import android.view.TextureView
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.wyman.cameralibrary.core.hardware.Resolution
+import java.lang.IllegalArgumentException
 import java.util.concurrent.CountDownLatch
 
 /**
  * 该 View 可以放在 主Activity那里
+ *
+ * 1:先传递 glSurfaceView
+ * 2：再设置 surfaceTexture
+ * 3：打开摄像头
  * */
 open class GLSurfaceViewToCamera <T : GLSurfaceView>@JvmOverloads constructor(
         context: Context,
@@ -25,6 +32,8 @@ open class GLSurfaceViewToCamera <T : GLSurfaceView>@JvmOverloads constructor(
             addView(value)
         }
 
+
+    private var surfaceTexture: SurfaceTexture? = null
 
     private lateinit var scaleType: ScaleType
     private lateinit var previewResolution: Resolution
@@ -40,8 +49,15 @@ open class GLSurfaceViewToCamera <T : GLSurfaceView>@JvmOverloads constructor(
         }
     }
 
+    /**
+     * 设置 SurfaceTexture
+     * */
+    open fun setSurfaceTexture(surfaceTexture : SurfaceTexture) {
+        this.surfaceTexture = surfaceTexture
+    }
+
     override fun getPreview(): Preview {
-        return glSurfaceView!!.toPreview()
+        return surfaceTexture?.toPreview() ?: throw IllegalArgumentException()
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

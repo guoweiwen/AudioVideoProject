@@ -15,8 +15,8 @@ sealed class Preview {
     ) : Preview()
 
     data class Surface(
-            //val surfaceHolder: SurfaceHolder
-            val glsurface : GLSurfaceView
+            val surfaceHolder: SurfaceHolder
+            //val glsurface : GLSurfaceView
     ) : Preview()
 
 }
@@ -25,4 +25,4 @@ sealed class Preview {
 // SurfaceTexture.toPreview() 为给 SurfaceTexture 内置函数
 internal fun SurfaceTexture.toPreview() = Texture(surfaceTexture = this)
 
-internal fun GLSurfaceView.toPreview() = Surface(glsurface = this)
+internal fun SurfaceHolder.toPreview() = Surface(surfaceHolder = this)

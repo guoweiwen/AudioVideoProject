@@ -8,6 +8,10 @@ import android.os.Environment
 import android.util.Log
 import com.wyman.fakedouyin.BaseActivity
 import com.wyman.fakedouyin.recordvideo.CameraActivity
+import com.wyman.filterlibrary.recorder.AudioParams
+import com.wyman.filterlibrary.recorder.MediaRecorder
+import com.wyman.filterlibrary.recorder.RecordInfo
+import com.wyman.filterlibrary.recorder.VideoParams
 
 
 import java.io.File
@@ -20,8 +24,8 @@ import java.io.File
 class RecordPresenter(private var mActivity: BaseActivity?) : SurfaceTexture.OnFrameAvailableListener {
 
     // 音视频参数
-//    private val mVideoParams: VideoParams
-//    private val mAudioParams: AudioParams
+    private val mVideoParams: VideoParams
+    private val mAudioParams: AudioParams
     // 录制操作开始
     private var mOperateStarted = false
 
@@ -33,18 +37,18 @@ class RecordPresenter(private var mActivity: BaseActivity?) : SurfaceTexture.OnF
     private var mRemainDuration: Long = 0
 
     // 视频编码器
-//    private val mMediaRecorder: MediaRecorder?
+    private val mMediaRecorder: MediaRecorder?
 
     // 视频列表
-//    private val mVideoList = ArrayList<MediaInfo>()
+    private val mVideoList = ArrayList<MediaInfo>()
 
     // 录制音频信息
-//    private var mAudioInfo: RecordInfo? = null
+    private var mAudioInfo: RecordInfo? = null
     // 录制视频信息
-//    private var mVideoInfo: RecordInfo? = null
+    private var mVideoInfo: RecordInfo? = null
 
     // 视频合成命令队列
-//    private var mCommandQueue: VideoCommandQueue? = null
+    private var mCommandQueue: VideoCommandQueue? = null
 
 
     /**
@@ -64,18 +68,18 @@ class RecordPresenter(private var mActivity: BaseActivity?) : SurfaceTexture.OnF
     init {
 
 //        // 创建视频流
-//        mMediaRecorder = MediaRecorder(this)
+        mMediaRecorder = MediaRecorder(this)
 //
 //        // 视频参数
-//        mVideoParams = VideoParams()
-//        mVideoParams.setVideoPath(getVideoTempPath(mActivity!!))
-//
+        mVideoParams = VideoParams()
+        mVideoParams.setVideoPath(getVideoTempPath(mActivity!!))
+
 //        // 音频参数
-//        mAudioParams = AudioParams()
-//        mAudioParams.setAudioPath(getAudioTempPath(mActivity!!))
-//
+        mAudioParams = AudioParams()
+        mAudioParams.setAudioPath(getAudioTempPath(mActivity!!))
+
 //        // 命令队列
-//        mCommandQueue = VideoCommandQueue()
+        mCommandQueue = VideoCommandQueue()
     }
 
     /**

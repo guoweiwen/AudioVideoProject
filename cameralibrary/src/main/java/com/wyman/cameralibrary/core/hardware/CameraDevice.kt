@@ -138,7 +138,7 @@ internal open class CameraDevice (
         * 再返回 surface
         * */
         is Preview.Surface -> preview.surfaceHolder
-                .also (this::setPreviewDisplay)//为 Camera
+                .also (this::setPreviewDisplay)//this为 Camera
                 .surface
     }
 
